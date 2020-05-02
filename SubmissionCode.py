@@ -20,9 +20,10 @@ a[inds] = np.take(col_mean, inds[1])
 sc = StandardScaler()
 at=sc.fit_transform(a)
 logreg = LogisticRegression()
-logreg.fit(at,b)
-y_pred=logreg.predict(at)
-co=np.shape(at)[0]
+x_train,x_test,y_train,y_test=train_test_split(at,b,test_size=0.3)
+logreg.fit(x_train,y_train)
+y_pred=logreg.predict(x_test)
+co=np.shape(x_test)[0]
 y_pred.resize(co,1)
 np.savetxt("predicted_test_Y.csv", y_pred, delimiter=",")
 
